@@ -59,7 +59,7 @@ We need to change the container IP address because it should take part of the sa
 
 ### Creating a GUI Profile
 To allow the access from your container to you NVIDIA card, you must to create a new lxd profile and assign it to your robocup container.
-[Follow this guide to create the profile](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/)
+If it is not a NVIDIA card, you can use the profile given in [this link](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/).
 
 Copy this lines into a configuration txt file, for example ``lxd_gui_profile.txt``
 ```
