@@ -59,8 +59,61 @@ We need to change the container IP address because it should take part of the sa
 
 ### Creating a GUI Profile
 To allow the access from your container to you NVIDIA card, you must to create a new lxd profile and assign it to your robocup container.
-[Follow this guide to create the profile](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/)
+If it is not a NVIDIA card, you can use the profile given in [this link](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/).
 
+Copy this lines into a configuration txt file, for example ``lxd_gui_profile.txt``
+```
+config:
+  environment.DISPLAY: :0
+  environment.PULSE_SERVER: unix:/home/ubuntu/pulse-native
+  nvidia.driver.capabilities: all
+  nvidia.runtime: "true"
+  user.user-data: |
+    #cloud-config
+    runcmd:
+      - 'sed -i "s/; enable-shm = yes/enable-shm = no/g" /etc/pulse/client.conf'
+    packages:
+      - x11-apps
+      - mesa-utils
+      - pulseaudio
+description: GUI LXD profile
+devices:
+  PASocket1:
+    bind: container
+    connect: unix:/run/user/1000/pulse/native
+    listen: unix:/home/ubuntu/pulse-native
+    security.gid: "1000"
+    security.uid: "1000"
+    uid: "1000"
+    gid: "1000"
+    mode: "0777"
+    type: proxy
+  X0:
+    bind: container
+    connect: unix:@/tmp/.X11-unix/X1
+    listen: unix:@/tmp/.X11-unix/X0
+    security.gid: "1000"
+    security.uid: "1000"
+    type: proxy
+  mygpu:
+    type: gpu
+name: x11
+used_by: []
+```
+  > If this gives you an error such as ``Error: Can't open display: :0`` change the line
+  > ``connect: unix:@/tmp/.X11-unix/X1`` to ``connect: unix:@/tmp/.X11-unix/X0``
+
+
+Then, create the profile in lxd:
+```
+lxc profile create gui
+cat lxd_gui_profile.txt | lxc profile edit gui
+```
+Finally, add this profile to the robocup2021world instance and start it or restart it if it wasn't stopped - ``lxc list`` can be used to see its state.
+```
+lxc profile add robocup2021world gui
+lxc restart robocup2021world
+```
 * At this moment, we can start our container:
 
   ```
