@@ -8,12 +8,12 @@ This repository contains the necessary packages and resources to run the simulat
 
 * Firt of all, you need to have installed LXD. There are multiples tutorials to install it, e.g. [this](https://www.linode.com/docs/guides/beginners-guide-to-lxd/), [this](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-lxd-on-ubuntu-18-04) or [this - Spanish](https://www.adictosaltrabajo.com/2018/07/11/amaras-lxd-por-encima-de-todas-las-cosas/).
 
-* Now, you have to download [the container](https://urjc-my.sharepoint.com/:u:/g/personal/jonatan_gines_urjc_es/ER01wTemVpJBmqno6zkP1AQBure4hsUgyQBL6w7I-ZbUIQ?e=fHE51X). This is a *tar.gz* file.
+* Now, you have to download [the container](https://urjc-my.sharepoint.com/:u:/g/personal/jonatan_gines_urjc_es/EWLRjNAPL95BpOFgIWMWKrIBEi2abBvS_x4m6VtkZYMFHg?e=LNeDZL). This is a *tar.gz* file.
 
 * Import the image from the downloaded file:
 
   ```
-  lxc image import 42b0ec65a03cfa6fcb5acfe94bb8ddaa6d8cfc91da47fa4487dad31a1f8c7bd3.tar.gz --alias rc2021world
+  lxc image import 9a3eb55daea65cdc43465c58e99bd349c2d421220af6d0cd6183de030fafec7b.tar.gz --alias rc2021world
   ```
 * Launch the lxd container from the imported image:
 
