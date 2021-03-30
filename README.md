@@ -8,14 +8,13 @@ This repository contains the necessary packages and resources to run the simulat
 
 * Firt of all, you need to have installed LXD. There are multiples tutorials to install it, e.g. [this](https://www.linode.com/docs/guides/beginners-guide-to-lxd/), [this](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-lxd-on-ubuntu-18-04) or [this - Spanish](https://www.adictosaltrabajo.com/2018/07/11/amaras-lxd-por-encima-de-todas-las-cosas/).
 
-* Now, you have to download [the container](https://urjc-my.sharepoint.com/:u:/g/personal/jonatan_gines_urjc_es/ETgFyp-JSA1AhyEoEUfsKH8BDbBwIhZNBVzLJYs3PKSWWg?e=BqaSsv). This is a *tar.gz* file.
+* Now, you have to download [the container](https://urjc-my.sharepoint.com/:u:/g/personal/jonatan_gines_urjc_es/EWLRjNAPL95BpOFgIWMWKrIBEi2abBvS_x4m6VtkZYMFHg?e=LNeDZL). This is a *tar.gz* file.
 
 * Import the image from the downloaded file:
 
   ```
-  lxc image import e4aec40b07128a30dd8d55ed6e3bdff85f3dc88ae39e32be45d836923f472eb9.tar.gz --alias rc2021world
+  lxc image import 9a3eb55daea65cdc43465c58e99bd349c2d421220af6d0cd6183de030fafec7b.tar.gz --alias rc2021world
   ```
-
 * Launch the lxd container from the imported image:
 
   ```
@@ -60,12 +59,9 @@ We need to change the container IP address because it should take part of the sa
 
 ### Creating a GUI Profile
 To allow the access from your container to you NVIDIA card, you must to create a new lxd profile and assign it to your robocup container.
-```
-lxc profile create gui
-lxc profile edit gui
-```
-Copy and paste the below profile and save the changes.
+If it is not a NVIDIA card, you can use the profile given in [this link](https://blog.simos.info/how-to-easily-run-graphics-accelerated-gui-apps-in-lxd-containers-on-your-ubuntu-desktop/).
 
+Copy this lines into a configuration txt file, for example ``lxd_gui_profile.txt``
 ```
 config:
   environment.DISPLAY: :0
@@ -85,13 +81,13 @@ devices:
   PASocket1:
     bind: container
     connect: unix:/run/user/1000/pulse/native
-    gid: "1000"
     listen: unix:/home/ubuntu/pulse-native
-    mode: "0777"
     security.gid: "1000"
     security.uid: "1000"
-    type: proxy
     uid: "1000"
+    gid: "1000"
+    mode: "0777"
+    type: proxy
   X0:
     bind: container
     connect: unix:@/tmp/.X11-unix/X1
@@ -101,17 +97,23 @@ devices:
     type: proxy
   mygpu:
     type: gpu
-name: gui
-
+name: x11
+used_by: []
 ```
+  > If this gives you an error such as ``Error: Can't open display: :0`` change the line
+  > ``connect: unix:@/tmp/.X11-unix/X1`` to ``connect: unix:@/tmp/.X11-unix/X0``
 
-Attach the profile to the container:
 
+Then, create the profile in lxd:
+```
+lxc profile create gui
+cat lxd_gui_profile.txt | lxc profile edit gui
+```
+Finally, add this profile to the robocup2021world instance and start it or restart it if it wasn't stopped - ``lxc list`` can be used to see its state.
 ```
 lxc profile add robocup2021world gui
+lxc restart robocup2021world
 ```
-
-
 * At this moment, we can start our container:
 
   ```
