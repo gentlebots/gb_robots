@@ -21,7 +21,7 @@
 
   <arg name="world_name" default="$(find tiago_sim_robocup2021)/worlds/wrs2020$(arg world_suffix)$(arg world_suffix2).world" />
 
-  <arg name="robot_pos" default="-x -1.2 -y 1.2 -z 0 -Y -1.57" />
+  <arg name="robot_pos" default="-x -2.38 -y 2.74 -z 0 -Y -1.57" />
 
   <!--deprecated argument, you should specify the parameters below-->
   <!-- They are described in tiago.urdf.xacro -->

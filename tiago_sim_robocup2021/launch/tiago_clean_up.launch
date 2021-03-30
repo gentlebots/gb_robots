@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <arg name="world_name" default="$(find tiago_sim_robocup2021)/worlds/wrs2020_clean_up_demo.world" />
+  <arg name="robot_pos" default="-x -2.38 -y 2.74 -z 0 -Y -1.57" />
+  <!-- Gazebo simulation -->
+  <include file="$(find tiago_sim_robocup2021)/launch/tiago_sim_robocup2021.launch">
+    <arg name="world_name"          value="$(arg world_name)"/>
+    <arg name="robot_pos"           value="$(arg robot_pos)"/>
+    <arg name="ft_sensor"           value="schunk-ft"/>
+    <arg name="spawn_objects"       value="true"/>
+    <arg name="use_moveit_camera"   value="true"/>
+  </include>
+  <!-- Allowed joint-value tolerance for validation that trajectory's first point matches current robot state -->
+  <param name="/move_group/trajectory_execution/allowed_start_tolerance" value="0.0"/>
+  <param name="/move_group/octomap_resolution" value="0.025"/>
+</launch>
