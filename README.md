@@ -13,7 +13,7 @@ This repository contains the necessary packages and resources to run the simulat
 * Import the image from the downloaded file:
 
   ```
-  lxc image import 9a3eb55daea65cdc43465c58e99bd349c2d421220af6d0cd6183de030fafec7b.tar.gz --alias rc2021world
+  lxc image import 027a8a0d3a2f3a23bd753edc8645dc4ddb77d9477a889cdf2d30cb2ab48e7ccd.tar.gz --alias rc2021world
   ```
 * Launch the lxd container from the imported image:
 
