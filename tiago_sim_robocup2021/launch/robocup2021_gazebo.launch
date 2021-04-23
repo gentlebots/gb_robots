@@ -1,0 +1,43 @@
+<launch>
+  <arg name="namespace"     default="" />
+  <arg name="debug"         default="false" />
+  <arg name="gui"           default="true" />
+  <arg name="paused"        default="false" />
+  <arg name="fast_physics"  default="false" />
+  <arg name="highrtf"       default="false" />
+  <arg name="seed"          default="1" />
+  <arg name="spawn_objects" default="true" />
+  
+  <arg name="clean_up"      default="true" />
+  <arg name="go_and_get_it" default="false" />
+
+  <arg unless="$(arg fast_physics)" name="world_suffix" value=""/>
+  <arg     if="$(arg fast_physics)" name="world_suffix" value="_fast"/>
+  <arg unless="$(arg highrtf)" name="world_suffix2" value=""/>
+  <arg     if="$(arg highrtf)" name="world_suffix2" value="_highrtf"/>
+  <arg name="world_name" default="$(find tmc_wrs_gazebo_worlds)/worlds/wrs2020$(arg world_suffix)$(arg world_suffix2).world" />
+  
+  <param name="/use_sim_time" value="true" />
+  <env name="GAZEBO_MODEL_PATH" value="$(find tmc_wrs_gazebo_worlds)/models:$(optenv GAZEBO_MODEL_PATH)"/>
+
+  <!-- Load Gazebo world -->
+  <include file="$(find tiago_sim_robocup2021)/launch/world_bringup.launch" >
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="world_name" value="$(arg world_name)" />
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <group if="$(arg spawn_objects)">
+    <node pkg="tmc_wrs_gazebo_worlds" type="spawn_objects" name="spawn_objects" args="--seed $(arg seed)" output="screen" />
+  </group>
+
+  <!-- Robocup Task Evaluator -->
+  <group if="$(arg clean_up)">
+    <include file="$(find at_home_2021_tmc_task_evaluators)/launch/clean_up_task_evaluators.launch"/>
+  </group>
+  <!--<group if="$(arg go_and_get_it)">
+    <include file="$(find at_home_2021_tmc_task_evaluators)/launch/go_and_get_it_task_evaluators.launch"/>
+  </group>-->
+
+</launch>

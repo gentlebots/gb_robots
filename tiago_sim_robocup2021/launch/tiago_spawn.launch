@@ -1,0 +1,23 @@
+<launch>
+<arg name="namespace" default=""/>
+  <arg name="robot_pos" default="-x -2.38 -y 2.9 -z 0 -Y -1.57" />
+  <arg name="robot"  default="steel"/>
+  <arg name="arm"  default="True"/>
+  <arg name="end_effector"  default="pal-gripper"/>
+  <arg name="ft_sensor"  default="schunk-ft"/>
+  <arg name="laser_model"  default="sick-571"/>
+  <arg name="camera_model"  default="orbbec-astra"/>
+  <arg name="multi" default=""/>
+
+<!-- spawn TIAGo in simulation -->
+  <include file="$(find tiago_gazebo)/launch/tiago_spawn.launch">
+    <arg name="arm" value="$(arg arm)"/>
+    <arg name="end_effector" value="$(arg end_effector)"/>
+    <arg name="ft_sensor" value="$(arg ft_sensor)"/>
+    <arg name="laser_model" value="$(arg laser_model)"/>
+    <arg name="camera_model" value="$(arg camera_model)"/>
+    <arg name="multi" value="$(arg multi)"/>
+    <arg name="gzpose" value="$(arg robot_pos)"/>
+  </include>
+
+</launch>
