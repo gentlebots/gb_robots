@@ -1,0 +1,3 @@
+[submodule "tmc_wrs_gazebo"]
+	path = tmc_wrs_gazebo
+	url = https://github.com/hsr-project/tmc_wrs_gazebo.git
