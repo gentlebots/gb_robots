@@ -129,7 +129,18 @@ lxc restart robocup2021world
   > NOTE: I recommend to create an alias for this command
 
 
+## Robocup referee set up
+
+When you login in the container at the first time, you have to configure the score system.
+
+### Set up the score widget
+
+```
+./catkin_ws/src/referee/tmc_gazebo_task_evaluators/scripts/setup_score_widget
+```
+
 ## Run the Simulation
+
 
 ### Gazebo
 From the *robocup2021world* container, run the next command:
