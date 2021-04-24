@@ -39,5 +39,5 @@
   <!--<group if="$(arg go_and_get_it)">
     <include file="$(find at_home_2021_tmc_task_evaluators)/launch/go_and_get_it_task_evaluators.launch"/>
   </group>-->
-
+  <include file="$(find tiago_sim_robocup2021)/launch/tiago_spawn.launch" ></include>
 </launch>
