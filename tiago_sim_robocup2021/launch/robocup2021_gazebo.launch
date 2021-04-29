@@ -33,10 +33,10 @@
   </group>
 
   <!-- Robocup Task Evaluator -->
- <!-- <group if="$(arg clean_up)">
+  <group if="$(arg clean_up)">
     <include file="$(find at_home_2021_tmc_task_evaluators)/launch/clean_up_task_evaluators.launch"/>
-  </group>-->
-  <!--<group if="$(arg go_and_get_it)">
+  </group>
+  <group if="$(arg go_and_get_it)">
     <include file="$(find at_home_2021_tmc_task_evaluators)/launch/go_and_get_it_task_evaluators.launch"/>
-  </group>-->
+  </group>
 </launch>
