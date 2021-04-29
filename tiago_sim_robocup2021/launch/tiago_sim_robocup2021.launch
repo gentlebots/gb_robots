@@ -2,5 +2,7 @@
   <!-- Load Gazebo -->
   <include file="$(find tiago_sim_robocup2021)/launch/robocup2021_gazebo.launch" ></include>
   <!-- Spawn TIAGo -->
-  <include file="$(find tiago_sim_robocup2021)/launch/tiago_spawn.launch" ></include>
+  <include file="$(find tiago_sim_robocup2021)/launch/tiago_spawn.launch" >
+    <arg name="ft_sensor"           value="schunk-ft"/>
+  </include>
 </launch>
