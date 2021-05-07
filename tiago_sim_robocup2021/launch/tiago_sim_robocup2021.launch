@@ -5,4 +5,9 @@
   <include file="$(find tiago_sim_robocup2021)/launch/tiago_spawn.launch" >
     <arg name="ft_sensor"           value="schunk-ft"/>
   </include>
+    <!-- TIAGo controllers -->
+  <include file="$(find tiago_sim_robocup2021)/launch/tiago_sim_controllers.launch" >
+    <arg name="ft_sensor"           value="schunk-ft"/>
+    <arg name="use_moveit_camera"   value="true"/>
+  </include>
 </launch>
