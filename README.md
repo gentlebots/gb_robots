@@ -58,6 +58,7 @@
     ```
     $ docker exec -it CONTAINER_ID /bin/bash
     $ cd home/developer/robocup_melodic_ws/
+    $ source /opt/ros/melodic/setup.bash 
     $ catkin_make
     ```
     Restart tmc_wrs_docker
