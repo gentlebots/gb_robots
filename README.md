@@ -65,6 +65,8 @@
     
 9. **Launch the test**
     ```
+    $ cd  ~/robocup_ws/
+    $ source install/setup.bash
     $ ros2 launch clean_up clean_up_launch.py
     ```
 
