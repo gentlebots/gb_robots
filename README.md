@@ -19,7 +19,7 @@
     $ cd ~/docker_robocup
     $ git clone --recursive https://github.com/gentlebots/tmc_wrs_docker.git -b rc_melodic_pks_and_bridges
     $ cd tmc_wrs_docker
-    $ ./pull.sh
+    $ ./pull-images.sh
     ```
 4. **Create deps ws**
     ```
