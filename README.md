@@ -1,5 +1,76 @@
 # Robocup 2021 World
 
+1. **Create a docker folder**
+    ```
+    $ mkdir ~/docker_robocup
+    ```
+
+2. **Download official docker Simulator**
+    Clone the [repo](https://github.com/RoboCupAtHome/Simulation-OPL-TiaGO) and build the image.
+    ```
+    $ cd ~/docker_robocup
+    $ git clone --recursive https://github.com/RoboCupAtHome/Simulation-OPL-TiaGO.git
+    $ cd Simulation-OPL-TiaGO
+    $ ./build.sh
+    ```
+3. **Download our docker bridges**
+    Clone the [repo](https://github.com/gentlebots/tmc_wrs_docker) and pull the image.
+    ```
+    $ cd ~/docker_robocup
+    $ git clone --recursive https://github.com/gentlebots/tmc_wrs_docker.git -b rc_melodic_pks_and_bridges
+    $ cd tmc_wrs_docker
+    $ ./pull.sh
+    ```
+4. **Create deps ws**
+    ```
+    $ mkdir -p ~/robocup_melodic_ws/src
+    $ cd ~/robocup_melodic_ws/src
+    $ wget https://raw.githubusercontent.com/gentlebots/gentlebots/main/melodic_deps.repos
+    $ vcs import < melodic_deps.repos
+    ```
+5. **Create a ROS2 ws and clone our repos**
+    ```
+    $ mkdir -p ~/robocup_ws/src
+    $ cd ~/robocup_ws/src
+    $ wget https://raw.githubusercontent.com/gentlebots/gentlebots/main/gentlebots.repos
+    $ vcs import < gentlebots.repos
+    $ cd ..
+    $ colcon build --symlink-install
+    
+6. **Launch official docker Simulator**
+    ```
+    $ cd ~/docker_robocup/Simulation-OPL-TiaGO
+    $ docker-compose -f docker-compose.tiago.yml up
+    ```
+    **Navigate to simulator [webvnc](http://localhost:3000) and press Play Button**
+    
+7. **Launch moveit and ros1_bridges docker**
+    ```
+    $ cd ~/docker_robocup/tmc_wrs_docker
+    $ docker-compose -f docker-compose.nvidia.yml up
+    ```
+8. **Compile melodic deps. If is not your first time, skip this step.**
+     ```
+    $ docker ps
+    ```
+    Locate and copy the CONTAINER_ID of **ghcr.io/gentlebots/tmc_wrs_docker_rc_melodic_and_bridges:nvidia**
+    
+    ```
+    $ docker exec -it CONTAINER_ID /bin/bash
+    $ cd home/developer/robocup_melodic_ws/
+    $ catkin_make
+    ```
+    Restart tmc_wrs_docker
+    
+9. **Launch the test**
+    ```
+    $ ros2 launch clean_up clean_up_launch.py
+    ```
+
+
+
+# DEPRECATED
+
 ## Description:
 
 This repository contains the necessary packages and resources to run the simulated tmc_wrs_gazebo world with TIAGo robot and its ROS2 bridges, allowing run your ROS2 Eloquent/Foxy software from your host.
