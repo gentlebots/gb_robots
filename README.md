@@ -71,7 +71,8 @@
     ```
 
 Optional. **In case you cannot see ros2 topics in your host**
-That probably means tha dockers have different IPs than the ones configured here. These ips can be changed in the script "init.bash" located at "~/robocup_melodic_ws/src/docker_launcher/".
+
+That probably means that dockers have different IPs than the ones configured here. These ips can be changed in the script "init.bash" located at "~/robocup_melodic_ws/src/docker_launcher/".
 You just need to change "GAZEBO_IP" to match the one from  the official docker Simulator and "GENTLE_IP" for our docker bridges.
 
 
